@@ -1,0 +1,740 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Projeto Marvel",
+        "description": "Marvel",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Usuário"
+                ],
+                "summary": "Marvel - Usuário JWT",
+                "description": "Usuario JWT, login com credenciais E-mail e Senha",
+                "requestBody": {
+                    "description": "Usuário JWT",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/auth"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/token"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/personagens": {
+            "get": {
+                "tags": [
+                    "Personagens"
+                ],
+                "summary": "Personagens - GET",
+                "description": "Personagens",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/personagens"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Personagens"
+                ],
+                "summary": "Personagens - POST",
+                "description": "Personagens",
+                "requestBody": {
+                    "description": "Personagens",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/personagens"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/personagens"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/personagens/{id}": {
+            "get": {
+                "tags": [
+                    "Personagens"
+                ],
+                "summary": "Personagens - GET By id",
+                "description": "Personagens",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/personagens"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Personagens"
+                ],
+                "summary": "Personagens - PUT",
+                "description": "Personagens",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/personagens"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/personagens"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Personagens"
+                ],
+                "summary": "Personagens - DELETE",
+                "description": "Personagens",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/personagens-quadrinhos": {
+            "get": {
+                "tags": [
+                    "Personagens e Quadrinhos"
+                ],
+                "summary": "Personagens e Quadrinhos - GET",
+                "description": "Personagens e Quadrinhos",
+                "operationId": "App\\Http\\Controllers\\PersonagensQuadrinhosController::index",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/personagens-quadrinhos"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Personagens e Quadrinhos"
+                ],
+                "summary": "Personagens e Quadrinhos - POST",
+                "description": "Personagens e Quadrinhos",
+                "operationId": "App\\Http\\Controllers\\PersonagensQuadrinhosController::create",
+                "requestBody": {
+                    "description": "Personagens e Quadrinhos",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/personagens-quadrinhos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/personagens-quadrinhos"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        },
+        "/api/personagens-quadrinhos/personagem/{id}": {
+            "get": {
+                "tags": [
+                    "Personagens e Quadrinhos"
+                ],
+                "summary": "Personagens e Quadrinhos - GET By personagem id",
+                "description": "Personagens",
+                "operationId": "App\\Http\\Controllers\\PersonagensQuadrinhosController::showPersonagem",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/personagens-quadrinhos"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/personagens-quadrinhos/quadrinho/{id}": {
+            "get": {
+                "tags": [
+                    "Personagens e Quadrinhos"
+                ],
+                "summary": "Personagens e Quadrinhos - GET By quadrinho id",
+                "description": "Personagens",
+                "operationId": "App\\Http\\Controllers\\PersonagensQuadrinhosController::showQuadrinho",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/personagens-quadrinhos"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/personagens-quadrinhos/{personagem_id}/{quadrinho_id}": {
+            "delete": {
+                "tags": [
+                    "Personagens e Quadrinhos"
+                ],
+                "summary": "Personagens e Quadrinhos - DELETE",
+                "description": "Personagens e Quadrinhos",
+                "operationId": "App\\Http\\Controllers\\PersonagensQuadrinhosController::deleteItem",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/personagem_id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/quadrinho_id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/api/quadrinhos": {
+            "get": {
+                "tags": [
+                    "Quadrinhos"
+                ],
+                "summary": "Quadrinhos - GET",
+                "description": "Quadrinhos",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/quadrinhos"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Quadrinhos"
+                ],
+                "summary": "Quadrinhos - POST",
+                "description": "Quadrinhos",
+                "requestBody": {
+                    "description": "Quadrinhos",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/quadrinhos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/quadrinhos"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/api/quadrinhos/{id}": {
+            "get": {
+                "tags": [
+                    "Quadrinhos"
+                ],
+                "summary": "Quadrinhos - GET By id",
+                "description": "Quadrinhos",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/quadrinhos"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Quadrinhos"
+                ],
+                "summary": "Quadrinhos - PUT",
+                "description": "Quadrinhos",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Task",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/quadrinhos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/quadrinhos"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Quadrinhos"
+                ],
+                "summary": "Quadrinhos - DELETE",
+                "description": "Quadrinhos",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "auth": {
+                "allOf": [
+                    {
+                        "required": [
+                            "email",
+                            "password"
+                        ],
+                        "properties": {
+                            "email": {
+                                "type": "string",
+                                "example": "email@email.com"
+                            },
+                            "password": {
+                                "type": "string",
+                                "example": "*******"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "token": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "token": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "personagens": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "nome": {
+                                "type": "string"
+                            },
+                            "poder": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "personagens-quadrinhos": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "personagem_id": {
+                                "type": "integer"
+                            },
+                            "quadrinho_id": {
+                                "type": "integer"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "quadrinhos": {
+                "allOf": [
+                    {
+                        "properties": {
+                            "id": {
+                                "type": "integer"
+                            },
+                            "titulo": {
+                                "type": "string"
+                            },
+                            "ano": {
+                                "type": "integer"
+                            },
+                            "descricao": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            }
+        },
+        "parameters": {
+            "id": {
+                "name": "id",
+                "in": "path",
+                "description": "Id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "personagem_id": {
+                "name": "personagem_id",
+                "in": "path",
+                "description": "Personagem Id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            },
+            "quadrinho_id": {
+                "name": "quadrinho_id",
+                "in": "path",
+                "description": "Quadrinho Id",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}
